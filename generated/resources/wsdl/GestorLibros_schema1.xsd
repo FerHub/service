@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://ws.service.com/" xmlns:tns="http://ws.service.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="NotFoundException" type="tns:NotFoundException"/>
+
+  <xs:element name="getLibroById" type="tns:getLibroById"/>
+
+  <xs:element name="getLibroByIdResponse" type="tns:getLibroByIdResponse"/>
+
+  <xs:element name="listarLibros" type="tns:listarLibros"/>
+
+  <xs:element name="listarLibrosResponse" type="tns:listarLibrosResponse"/>
+
+  <xs:complexType name="listarLibros">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="listarLibrosResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:libro" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="libro">
+    <xs:sequence>
+      <xs:element name="editorial" type="xs:string" minOccurs="0"/>
+      <xs:element name="nombre" type="xs:string" minOccurs="0"/>
+      <xs:element name="serie" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getLibroById">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getLibroByIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:libro" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="NotFoundException">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

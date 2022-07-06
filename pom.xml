@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.service.ws</groupId>
+	<artifactId>service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<sun.jaxws.version>2.2.8</sun.jaxws.version>
+		<metro.jaxws.version>2.3</metro.jaxws.version>
+		<jaxws.scope>compile</jaxws.scope> <!-- provided(weblogic) / compile(tomcat) -->
+		<compileSource>1.8</compileSource>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+
+		<!-- jax-ws runtime from sun -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>${sun.jaxws.version}</version>
+			<scope>${jaxws.scope}</scope>
+		</dependency>
+
+		<!-- jax-ws runtime from glassfish Metro - project tango -->
+		<dependency>
+			<groupId>org.glassfish.metro</groupId>
+			<artifactId>webservices-rt</artifactId>
+			<version>${metro.jaxws.version}</version>
+			<scope>${jaxws.scope}</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.3.2</version>
+
+
+				</plugin>
+				<plugin>
+					<groupId>org.jvnet.jax-ws-commons</groupId>
+					<artifactId>jaxws-maven-plugin</artifactId>
+					<version>2.3</version>
+					<executions>
+						<execution>
+							<id>basic</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>wsgen</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<keep>true</keep>
+						<sei>com.service.ws.GestorLibrosImpl</sei>
+						<genWsdl>true</genWsdl>
+						<resourceDestDir>${basedir}\generated\resources\wsdl</resourceDestDir>
+						<sourceDestDir>${basedir}\generated\java\source</sourceDestDir>
+						<verbose>true</verbose>
+						<target>2.1</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+
+</project>
