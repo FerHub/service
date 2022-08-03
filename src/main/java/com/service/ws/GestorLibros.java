@@ -16,9 +16,11 @@ import javax.jws.WebService;
 @WebService(name="GestorLibros")
 public interface GestorLibros {
 
-
-    public List<Libro> listarLibros();
+	public List<Libro> listarLibros() throws Exception;
     
-    public Libro getLibroById(String numSerie) throws NotFoundException;
+	public Libro getLibroById(String numSerie) throws Exception;
+    
+	public String addLibro(Libro libro) throws Exception;
+    
 
 }

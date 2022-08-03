@@ -5,28 +5,44 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import com.service.repository.LibroRepository;
+
 
 @WebService(serviceName="GestorLibros", endpointInterface = "com.service.ws.GestorLibros")
 public class GestorLibrosImpl implements GestorLibros {
 
-	public List<Libro> listarLibros() {
-		List<Libro> listaLibros = new ArrayList<Libro>();
-		listaLibros.add(new Libro("planeta", "la sombra del viento", "isb123"));
-		listaLibros.add(new Libro("planeta", "puertas de piedra", "isbn231"));
+	public List<Libro> listarLibros() throws Exception {
+		LibroRepository libroRepo = new LibroRepository();
+		List<Libro> listaLibros = null;
+		try {
+			//listaLibros = libroRepo.findAll();
+			listaLibros = new ArrayList<Libro>();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("GestorLibrosImpl.listarLibros: Error no controlado");
+		}
+		
+		if(listaLibros.size() == 0) {
+			throw new EmptyException();
+		}
 		return listaLibros;
 	}
 
-	public Libro getLibroById(String numSerie) throws NotFoundException {
-		List<Libro> listaLibros = listarLibros();
-		int i = 0;
-		while (i < listaLibros.size() && !numSerie.equals(listaLibros.get(i).getSerie())) {
-			i++;
-		}
+	public Libro getLibroById(String numSerie) throws Exception {
+		LibroRepository libroRepo = new LibroRepository();
+		Libro libro = libroRepo.findByISBN(numSerie);
 		
-		if(i == listaLibros.size()) {
+		if(libro == null) {
 			throw new NotFoundException();
 		}
-		return listaLibros.get(i);
+		return libro;
+	}
+
+	public String addLibro(Libro libro) throws Exception {
+		LibroRepository libroRepo = new LibroRepository();
+		return libroRepo.save(libro.getSerie(), libro.getNombre(), libro.getEditorial());
+		
 	}
 
 }

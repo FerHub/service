@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" targetNamespace="http://ws.service.com/" xmlns:tns="http://ws.service.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="NotFoundException" type="tns:NotFoundException"/>
+  <xs:element name="Exception" type="tns:Exception"/>
+
+  <xs:element name="addLibro" type="tns:addLibro"/>
+
+  <xs:element name="addLibroResponse" type="tns:addLibroResponse"/>
 
   <xs:element name="getLibroById" type="tns:getLibroById"/>
 
@@ -29,6 +33,12 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="getLibroById">
     <xs:sequence>
       <xs:element name="arg0" type="xs:string" minOccurs="0"/>
@@ -41,9 +51,15 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="NotFoundException">
+  <xs:complexType name="addLibro">
     <xs:sequence>
-      <xs:element name="message" type="xs:string" minOccurs="0"/>
+      <xs:element name="arg0" type="tns:libro" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addLibroResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>
